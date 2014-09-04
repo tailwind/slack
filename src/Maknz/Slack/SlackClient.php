@@ -74,14 +74,19 @@ class SlackClient {
    * @param array $attachments An optional attachement to send with the payload
    * @return void
    */
-  public function send($message, $channel = null, $username = null, $icon_url = null, $attachments = null) {
+    public function send($message, $channel = null, $username = null, $icon_url = null, $attachments = null)
+    {
 
-    $payload = json_encode([
-      'text' => $message,
-      'channel' => $channel ?: $this->defaultChannel,
-      'username' => $username ?: $this->defaultUsername,
-      'icon_url' => $icon_url ?: $this->defaultIcon,
-      'attachments' => $attachments ?: []
-  }
+        $payload = json_encode([
+           'text'        => $message,
+           'channel'     => $channel ? : $this->defaultChannel,
+           'username'    => $username ? : $this->defaultUsername,
+           'icon_url'    => $icon_url ? : $this->defaultIcon,
+           'attachments' => $attachments ? : [],
+           ]);
+
+        $this->client->post($this->endpoint, ['body' => $payload]);
+
+    }
 
 }
